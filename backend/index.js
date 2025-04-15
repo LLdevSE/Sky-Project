@@ -3,6 +3,8 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import studentRouter from './routes/studentRouter.js';
 import itemRouter from './routes/itemsRouter.js';
+import userRouter from './routes/userRouter.js';
+import { loginUser } from './controllers/userController.js';
 
 const app = express();
 
@@ -18,9 +20,11 @@ mongoose.connect("mongodb+srv://admin:admin1234@cluster0.cvatdig.mongodb.net/?re
 
 app.use(bodyParser.json());
 
-app.use("/student", studentRouter);
+app.use("/api/student", studentRouter);
 
-app.use("/items", itemRouter);
+app.use("/api/items", itemRouter);
+
+app.use("/api/user", userRouter);
 
 
 app.listen(3000, () => {
