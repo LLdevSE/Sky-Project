@@ -3,7 +3,6 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import studentRouter from './routes/studentRouter.js';
 import itemRouter from './routes/itemsRouter.js';
-import booksRouter from './routes/booksRouter.js';
 
 const app = express();
 
@@ -23,7 +22,6 @@ app.use("/student", studentRouter);
 
 app.use("/items", itemRouter);
 
-app.use("/books", booksRouter);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
