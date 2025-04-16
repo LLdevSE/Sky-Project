@@ -15,6 +15,14 @@ export function getAllItems(req, res) {
 }
 
 export function saveItems(req, res) {
+
+    if (req.user.role != "admin") {
+        res.status(403).json({
+            message: "Unauthorized."
+        })
+        return;
+    }
+
     const item = new Item(req.body)
     item.save().then(
         () => {
