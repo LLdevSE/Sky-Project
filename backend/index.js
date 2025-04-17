@@ -2,8 +2,8 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import userRouter from './routes/userRouter.js';
-import jwt, { decode } from "jsonwebtoken";
 import productRouter from './routes/produtRouter.js';
+import verifyJWT from './middleware/auth.js';
 
 
 const app = express();
@@ -20,23 +20,8 @@ mongoose.connect("mongodb+srv://admin:admin1234@cluster0.cvatdig.mongodb.net/?re
 )
 
 //Middlewares
-app.use(bodyParser.json()); // Parse JSON request bodies
-
-//  URL-encoded request bodies
-app.use(
-  (req, res, next) => {
-    const header = req.header("Authorization");
-    if (header != null) {
-      const token = header.replace("Bearer ", "");
-      jwt.verify(token, "sample1234", (err, decoded) => {
-        if (decode != null) {
-          req.user = decoded;
-        }
-      })
-    }
-    next();
-  }
-)
+app.use(bodyParser.json()); 
+app.use(verifyJWT);
 
 
 //Routes
