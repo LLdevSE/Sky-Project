@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import userRouter from './routes/userRouter.js';
 import productRouter from './routes/productRouter.js';
 import verifyJWT from './middlewares/auth.js';
+import orderRouter from './routes/orderRouter.js';
 
 
 
@@ -28,6 +29,7 @@ app.use(verifyJWT);
 //Routes
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
+app.use("/api/order", orderRouter);
 
 //Server
 app.listen(3000, () => {
