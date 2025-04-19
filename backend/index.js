@@ -2,8 +2,9 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import userRouter from './routes/userRouter.js';
-import productRouter from './routes/produtRouter.js';
-import verifyJWT from './middleware/auth.js';
+import productRouter from './routes/productRouter.js';
+import verifyJWT from './middlewares/auth.js';
+
 
 
 const app = express();
@@ -20,7 +21,7 @@ mongoose.connect("mongodb+srv://admin:admin1234@cluster0.cvatdig.mongodb.net/?re
 )
 
 //Middlewares
-app.use(bodyParser.json()); 
+app.use(bodyParser.json());
 app.use(verifyJWT);
 
 
