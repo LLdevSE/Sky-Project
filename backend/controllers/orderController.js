@@ -28,10 +28,10 @@ export function createOrder(req, res) {
             if (lastBills.length == 0) {
                 orderData.orderId = "ORD0001";
             } else {
-                const lastBills = lastBills[0];
-                const lastOrderId = lastBills.orderId;
+                const lastBill = lastBills[0];
+                const lastOrderId = lastBill.orderId;
                 const lastOrderNumber = lastOrderId.replace("ORD", "");
-                const lastOrderNumberInt = parseint(lastOrderNumber);
+                const lastOrderNumberInt = parseInt(lastOrderNumber);
                 const newOrderNumberInt = lastOrderNumberInt + 1;
                 const newOrderNumberStr = newOrderNumberInt.toString().padStart(4, "0");
                 orderData.orderId = "ORD" + newOrderNumberStr;
@@ -50,4 +50,40 @@ export function createOrder(req, res) {
             })
         }
     )
+}
+
+export function getorders(req, res) {
+    if (req.user == null) {
+        res.status(401).json({
+            message: "You must be logged in to get orders"
+        })
+        return;
+    }
+
+    if (req.user.role == "admin") {
+        Order.find().then(
+            (orders) => {
+                res.status(200).json(orders)
+            }).catch(
+                (err) => {
+                    console.log(err)
+                    res.status(500).json({
+                        message: "Failed to fetch orders"
+                    })
+                })
+    } else {
+        Order.find({
+            email: req.user.email
+        }).then(
+            (orders) => {
+                res.status(200).json(orders)
+            }).catch(
+                (err) => {
+                    console.log(err)
+                    res.status(500).json({
+                        message: "Failed to fetch orders"
+                    })
+                }
+            )
+    }
 }
