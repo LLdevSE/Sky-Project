@@ -1,12 +1,18 @@
-import './App.css'
-import AdminPage from './pages/adminPage.jsx';
-import LoginPage from './pages/loginPage.jsx';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import AdminPage from "./pages/adminPage.jsx";
+import LoginPage from "./pages/loginPage.jsx";
 
 function App() {
-
   return (
+    <BrowserRouter>
+      <Routes path="/*">
+        <Route path="/admin/*" element={<AdminPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/" element={<h1>Home</h1>} />
+      </Routes>
+    </BrowserRouter>
 
-    <AdminPage />
     // <LoginPage />
 
     // <div className="bg-gray-100 min-h-screen">
@@ -32,8 +38,7 @@ function App() {
     //     />
     //   </section>
     // </div>
-
   );
 }
 
-export default App
+export default App;
