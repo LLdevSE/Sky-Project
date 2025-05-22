@@ -2,6 +2,8 @@
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../models/user.js";
+import dotenv from "dotenv";
+dotenv.config();
 
 export function saveUser(req, res) {
 
@@ -68,7 +70,8 @@ export function loginUser(req, res) {
 
                 console.log(userData);
 
-                const token = jwt.sign(userData, "sample1234")
+                const token = jwt.sign(userData, process.env.JWT_KEY)
+                
                 res.status(200).json({
                     message: "login successful",
                     token: token,
