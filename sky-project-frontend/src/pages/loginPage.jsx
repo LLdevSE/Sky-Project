@@ -7,8 +7,9 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
 
   function handleLogin() {
-    console.log('Email: ', email);
-    console.log('Password: ', password);
+      console.log('Email: ', email);
+      console.log('Password: ', password);
+  }
 
     axios
       .post('http://localhost:3000/api/user/login', {
@@ -22,7 +23,7 @@ export default function LoginPage() {
         console.log('login failed', error.response.data);
       });
 
-    console.log('Login button clicked');
+    console.log('Login button click');
   }
 
   return (
