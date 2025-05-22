@@ -1,26 +1,28 @@
 import { FaSpa } from 'react-icons/fa'; // Import icon
 import { useState } from 'react';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function handleLogin() {
-      console.log('Email: ', email);
-      console.log('Password: ', password);
-  }
+    console.log('Email: ', email);
+    console.log('Password: ', password);
 
     axios
-      .post('http://localhost:3000/api/user/login', {
+      .post(import.meta.env.VITE_BACKEND_URL + '/api/user/login', {
         email: email,
         password: password,
       })
       .then((response) => {
         console.log('login successful', response.data);
+        toast.success('login successful');
       })
       .catch((error) => {
         console.log('login failed', error.response.data);
+        toast.error(error.response.data.message || 'login failed');
       });
 
     console.log('Login button click');
@@ -76,7 +78,7 @@ export default function LoginPage() {
             <button
               onClick={handleLogin}
               type="submit"
-              className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition duration-300">
+              className="w-full py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition duration-300 cursor-pointer">
               Login
             </button>
           </div>
